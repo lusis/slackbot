@@ -20,10 +20,11 @@ type HelloEvent struct {
 type MessageEvent struct {
 	Event
 	// Simple Message
-	Channel string `json:"channel"`
-	User    string `json:"user"`
-	Text    string `json:"text"`
-	TS      string `json:"ts"`
+	Channel  string `json:"channel"`
+	User     string `json:"user"`
+	Username string `json:"username"`
+	Text     string `json:"text"`
+	TS       string `json:"ts"`
 
 	// Edited Message is a simple message with  more attributes
 	Edited *struct {
@@ -31,7 +32,7 @@ type MessageEvent struct {
 		TS   string `json:"ts"`
 	} `json:"edited,omitempty"`
 
-	Subtype string `json:"string,omitempty"`
+	Subtype string `json:"subtype,omitempty"`
 	Hidden  bool   `json:"hidden"`
 }
 
