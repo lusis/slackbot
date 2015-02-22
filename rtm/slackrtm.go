@@ -2,7 +2,7 @@ package rtm
 
 import (
 	"github.com/gorilla/websocket"
-	"github.com/pastjean/slackbot/api"
+	"github.com/lusis/slackbot/api"
 )
 
 // SlackRTM needs to be documented
