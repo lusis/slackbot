@@ -14,6 +14,11 @@ type HelloEvent struct {
 	Event
 }
 
+type PongEvent struct {
+	Event
+	ReplyTo int `json:"reply_to"`
+}
+
 // MessageEvent happens when A message was sent to a channel
 // https://api.slack.com/events/message
 // TODO: implement messages subtypes Messages subtypes are still not implemented

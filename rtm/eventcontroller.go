@@ -8,6 +8,7 @@ import (
 
 type EventController struct {
 	helloEventHandlers   []func(HelloEvent)
+	pongEventHandlers    []func(PongEvent)
 	messageEventHandlers []func(MessageEvent)
 
 	// Channel Events
@@ -98,6 +99,8 @@ func (e *EventController) ReceiveEvent(evtReader io.Reader) error {
 
 	case "hello":
 		e.triggerHelloEventHandlers(evtString)
+	case "pong":
+		e.triggerPongEventHandlers(evtString)
 	case "message":
 		e.triggerMessageEventHandlers(evtString)
 	case "channel_marked":
@@ -202,6 +205,22 @@ func (e *EventController) ReceiveEvent(evtReader io.Reader) error {
 	return nil
 }
 
+func (e *EventController) OnPongEvents(handler func(PongEvent)) {
+	if e.pongEventHandlers == nil {
+		e.pongEventHandlers = make([]func(PongEvent), 0)
+	}
+	e.pongEventHandlers = append(e.pongEventHandlers, handler)
+}
+func (e *EventController) triggerPongEventHandlers(evtString []byte) {
+	var evt PongEvent
+	err := json.Unmarshal(evtString, &evt)
+	if err != nil {
+		return
+	}
+	for _, handler := range e.pongEventHandlers {
+		handler(evt)
+	}
+}
 func (e *EventController) OnHelloEvents(handler func(HelloEvent)) {
 	if e.helloEventHandlers == nil {
 		e.helloEventHandlers = make([]func(HelloEvent), 0)
