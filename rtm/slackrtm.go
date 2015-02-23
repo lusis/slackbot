@@ -1,6 +1,8 @@
 package rtm
 
 import (
+	"time"
+
 	"github.com/gorilla/websocket"
 	"github.com/lusis/slackbot/api"
 )
@@ -14,11 +16,11 @@ type SlackRTM struct {
 	connectEventHandlers []func()
 
 	// The ID we use to send messages (must change everytime we send a msg)
-	messageID int
+	messageID int64
 }
 
 func NewSlackRTM(resp *api.RtmStartResponse) *SlackRTM {
-	return &SlackRTM{messageID: 1, RtmStartResponse: resp}
+	return &SlackRTM{messageID: int64(time.Now().Unix()), RtmStartResponse: resp}
 }
 
 func (rtm *SlackRTM) Start() error {
@@ -49,10 +51,10 @@ func (rtm *SlackRTM) runLoop() error {
 
 func (rtm *SlackRTM) SendMessage(channel string, message string) error {
 	msg := struct {
-		ID      int    `json:"id"`
+		ID      int64  `json:"id"`
 		Type    string `json:"type"`
 		Channel string `json:"channel"`
-		Text    string `json:"message"`
+		Text    string `json:"text"`
 	}{ID: rtm.messageID, Type: "message", Channel: channel, Text: message}
 
 	err := rtm.conn.WriteJSON(msg)

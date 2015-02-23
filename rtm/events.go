@@ -41,6 +41,17 @@ type MessageEvent struct {
 	Hidden  bool   `json:"hidden"`
 }
 
+type SentMessageEvent struct {
+	Ok         bool `json:"ok"`
+	ReplyTo    int  `json:"reply_to"`
+	ErrorEvent *struct {
+		Code    int    `json:"code,omitempty"`
+		MsgText string `json:"msg,omitempty"`
+	} `json:"error,omitempty"`
+	TS   string `json:"ts,omitempty"`
+	Text string `json:"text,omitempty"`
+}
+
 // ChannelMarkedEvent happens when Your channel read marker was updated
 // https://api.slack.com/events/channel_marked
 type ChannelMarkedEvent struct {

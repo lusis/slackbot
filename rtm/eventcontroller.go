@@ -7,9 +7,10 @@ import (
 )
 
 type EventController struct {
-	helloEventHandlers   []func(HelloEvent)
-	pongEventHandlers    []func(PongEvent)
-	messageEventHandlers []func(MessageEvent)
+	helloEventHandlers       []func(HelloEvent)
+	pongEventHandlers        []func(PongEvent)
+	sentMessageEventHandlers []func(SentMessageEvent)
+	messageEventHandlers     []func(MessageEvent)
 
 	// Channel Events
 	channelMarkedEventHandlers         []func(ChannelMarkedEvent)
@@ -96,7 +97,7 @@ func (e *EventController) ReceiveEvent(evtReader io.Reader) error {
 
 	switch genericEvt.Type {
 	default:
-
+		e.triggerSentMessageEventHandlers(evtString)
 	case "hello":
 		e.triggerHelloEventHandlers(evtString)
 	case "pong":
@@ -211,6 +212,7 @@ func (e *EventController) OnPongEvents(handler func(PongEvent)) {
 	}
 	e.pongEventHandlers = append(e.pongEventHandlers, handler)
 }
+
 func (e *EventController) triggerPongEventHandlers(evtString []byte) {
 	var evt PongEvent
 	err := json.Unmarshal(evtString, &evt)
@@ -221,12 +223,32 @@ func (e *EventController) triggerPongEventHandlers(evtString []byte) {
 		handler(evt)
 	}
 }
+
+func (e *EventController) OnSentMessageEvents(handler func(SentMessageEvent)) {
+	if e.sentMessageEventHandlers == nil {
+		e.sentMessageEventHandlers = make([]func(SentMessageEvent), 0)
+	}
+	e.sentMessageEventHandlers = append(e.sentMessageEventHandlers, handler)
+}
+
+func (e *EventController) triggerSentMessageEventHandlers(evtString []byte) {
+	var evt SentMessageEvent
+	err := json.Unmarshal(evtString, &evt)
+	if err != nil {
+		return
+	}
+	for _, handler := range e.sentMessageEventHandlers {
+		handler(evt)
+	}
+}
+
 func (e *EventController) OnHelloEvents(handler func(HelloEvent)) {
 	if e.helloEventHandlers == nil {
 		e.helloEventHandlers = make([]func(HelloEvent), 0)
 	}
 	e.helloEventHandlers = append(e.helloEventHandlers, handler)
 }
+
 func (e *EventController) triggerHelloEventHandlers(evtString []byte) {
 	var evt HelloEvent
 	err := json.Unmarshal(evtString, &evt)
