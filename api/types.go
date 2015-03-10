@@ -80,7 +80,7 @@ type IM struct {
 	User               string   `json:"user"`
 	Created            int64    `json:"created"` // a unix timestamp
 	IsUserDeleted      bool     `json:"is_user_deleted"`
-	LastRead           float64  `json:"last_read,omitempty"`
+	LastRead           string   `json:"last_read,omitempty"`
 	Latest             *Message `json:"latest,omitempty"`
 	UnreadCount        int64    `json:"unread_count"`
 	UnreadCountDisplay int64    `json:"unread_count_display"`
@@ -93,7 +93,7 @@ type Group struct {
 	IsArchived bool     `json:"is_archived"`
 	IsGroup    bool     `json:"is_group"`
 	IsOpen     bool     `json:"is_open"`
-	LastRead   float64  `json:"last_read"`
+	LastRead   string   `json:"last_read"`
 	Latest     *Message `json:"latest,omitempty"`
 	Members    []string `json:"members"`
 	Name       string   `json:"name"`
