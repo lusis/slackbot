@@ -131,9 +131,9 @@ type TeamPrefs struct {
 	DMRetentionDuration        int64    `json:"dm_retention_duration"`
 	DMRetentionType            int64    `json:"dm_retention_type"`
 	EmojiOnlyAdmins            bool     `json:"emoji_only_admins"`
-	GatewayAllowIrcPlain       bool     `json:"gateway_allow_irc_plain"`
-	GatewayAllowIrcSSL         bool     `json:"gateway_allow_irc_ssl"`
-	GatewayAllowXmppSSL        bool     `json:"gateway_allow_xmpp_ssl"`
+	GatewayAllowIrcPlain       int64    `json:"gateway_allow_irc_plain"`
+	GatewayAllowIrcSSL         int64    `json:"gateway_allow_irc_ssl"`
+	GatewayAllowXmppSSL        int64    `json:"gateway_allow_xmpp_ssl"`
 	GroupRetentionDuration     int64    `json:"group_retention_duration"`
 	GroupRetentionType         int64    `json:"group_retention_type"`
 	HideReferers               bool     `json:"hide_referers"`
