@@ -52,14 +52,8 @@ type User struct {
 		Email     string `json:"email"`
 		Skype     string `json:"skype"`
 		Phone     string `json:"phone"`
+		Title     string `json:"title"`
 		*Icons
-		/*
-			Image24  string `json:"image_24"`
-			Image32  string `json:"image_32"`
-			Image48  string `json:"image_48"`
-			Image72  string `json:"image_72"`
-			Image192 string `json:"image_192"`
-		*/
 	} `json:"profile"`
 	IsAdmin           bool `json:"is_admin"`
 	IsOwner           bool `json:"is_owner"`
@@ -136,12 +130,12 @@ type TeamPrefs struct {
 	MsgEditWindowMins          int64    `json:"msg_edit_window_mins"`
 	RequireAtForMention        int64    `json:"require_at_for_mention"`
 	RetentionDuration          int64    `json:"retention_duration"`
-	RetentionType              int64    `json:"retention_type"`
+	RetentionType              string   `json:"retention_type"`
 	ServicesOnlyAdmin          bool     `json:"services_only_admin"`
 	SlackbotResponsesDisabled  bool     `json:"slackbot_responses_disabled"`
 	SlackbotResponseOnlyAdmins bool     `json:"slackbot_responses_only_admins"`
 	StatsOnlyAdmins            bool     `json:"stats_only_admins"`
-	WarnBeforeAtChannel        bool     `json:"warn_before_at_channel"`
+	WarnBeforeAtChannel        string   `json:"warn_before_at_channel"`
 	WhoCanArchiveChannels      string   `json:"who_can_archive_channels"`
 	WhoCanAtEveryone           string   `json:"who_can_at_everyone"`
 	WhoCanCreateChannels       string   `json:"who_can_create_channels"`
@@ -152,18 +146,26 @@ type TeamPrefs struct {
 }
 
 type Bot struct {
-	ID      string  `json:"id"`
-	Name    string  `json:"name"`
-	Deleted bool    `json:"deleted"`
-	Icons   []Icons `json:"icons"`
+	ID      string `json:"id"`
+	Name    string `json:"name"`
+	Deleted bool   `json:"deleted"`
+	Icons   *Icons `json:"icons"`
 }
 
 type Icons struct {
-	Image24  string `json:"image_24,omitempty"`
-	Image32  string `json:"image_32,omitempty"`
-	Image48  string `json:"image_48,omitempty"`
-	Image72  string `json:"image_72,omitempty"`
-	Image192 string `json:"image_192,omitempty"`
+	Image24      string `json:"image_24,omitempty"`
+	Image32      string `json:"image_32,omitempty"`
+	Image34      string `json:"image_34,omitempty"`
+	Image36      string `json:"image_36,omitempty"`
+	Image44      string `json:"image_44,omitempty"`
+	Image48      string `json:"image_48,omitempty"`
+	Image68      string `json:"image_68,omitempty"`
+	Image72      string `json:"image_72,omitempty"`
+	Image88      string `json:"image_88,omitempty"`
+	Image102     string `json:"image_102,omitempty"`
+	Image132     string `json:"image_132,omitempty"`
+	Image192     string `json:"image_192,omitempty"`
+	ImageDefault string `json:"image_default,omitempty"`
 }
 
 type Message struct {

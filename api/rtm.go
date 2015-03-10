@@ -11,7 +11,7 @@ type RtmStartResponse struct {
 	Groups   []Group   `json:groups"`
 	Bots     []Bot     `json:bots"`
 	IMs      []IM      `json:ims"`
-	Team     Team      `json:"team"`
+	Team     `json:"team"`
 }
 
 // RtmStart returns all the info needed to start a realtime (websocket)
