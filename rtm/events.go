@@ -8,15 +8,20 @@ type Event struct {
 	Type string `json:"type"`
 }
 
+// UnknownEvent is for events that don't match a predefined type
+type UnknownEvent struct{}
+
 // HelloEvent happens when The client has succesfully connected to the server
 // https://api.slack.com/events/hello
 type HelloEvent struct {
 	Event
 }
 
+// PongEvent happens in response to ping sent
 type PongEvent struct {
 	Event
-	ReplyTo int `json:"reply_to"`
+	ReplyTo int   `json:"reply_to"`
+	TS      int64 `json:"time"`
 }
 
 // MessageEvent happens when A message was sent to a channel

@@ -9,6 +9,7 @@ import (
 type EventController struct {
 	helloEventHandlers       []func(HelloEvent)
 	pongEventHandlers        []func(PongEvent)
+	unknownEventHandlers     []func(UnknownEvent)
 	sentMessageEventHandlers []func(SentMessageEvent)
 	messageEventHandlers     []func(MessageEvent)
 
@@ -97,7 +98,7 @@ func (e *EventController) ReceiveEvent(evtReader io.Reader) error {
 
 	switch genericEvt.Type {
 	default:
-		e.triggerSentMessageEventHandlers(evtString)
+		e.triggerUnknownEventHandlers(evtString)
 	case "hello":
 		e.triggerHelloEventHandlers(evtString)
 	case "pong":
@@ -204,6 +205,24 @@ func (e *EventController) ReceiveEvent(evtReader io.Reader) error {
 		e.triggerTeamMigrationStartedEventHandlers(evtString)
 	}
 	return nil
+}
+
+func (e *EventController) OnUnknownEvents(handler func(UnknownEvent)) {
+	if e.unknownEventHandlers == nil {
+		e.unknownEventHandlers = make([]func(UnknownEvent), 0)
+	}
+	e.unknownEventHandlers = append(e.unknownEventHandlers, handler)
+}
+
+func (e *EventController) triggerUnknownEventHandlers(evtString []byte) {
+	var evt UnknownEvent
+	err := json.Unmarshal(evtString, &evt)
+	if err != nil {
+		return
+	}
+	for _, handler := range e.unknownEventHandlers {
+		handler(evt)
+	}
 }
 
 func (e *EventController) OnPongEvents(handler func(PongEvent)) {
