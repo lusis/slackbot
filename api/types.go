@@ -39,10 +39,10 @@ type Channel struct {
 		Type string  `json:"type"`
 		User string  `json:"user"`
 	} `json:"latest,omitempty"`
-	IsMember           bool    `json:"is_member"`
-	LastRead           float64 `json:"last_read"`
-	UnreadCount        int64   `json:"unread_count"`
-	UnreadCountDisplay int64   `json:"unread_count_display"`
+	IsMember           bool   `json:"is_member"`
+	LastRead           string `json:"last_read"`
+	UnreadCount        int64  `json:"unread_count"`
+	UnreadCountDisplay int64  `json:"unread_count_display"`
 }
 
 type User struct {
@@ -172,10 +172,10 @@ type Icons struct {
 }
 
 type Message struct {
-	Text string  `json:text"`
-	TS   float64 `json:ts"`
-	Type string  `json:type"`
-	User string  `json:user"`
+	Text string `json:text"`
+	TS   string `json:ts"`
+	Type string `json:type"`
+	User string `json:user"`
 }
 
 type File struct {
