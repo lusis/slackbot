@@ -8,11 +8,10 @@ type RtmStartResponse struct {
 	//Self     User      `json:"self"`
 	Users    []User    `json:"users"`
 	Channels []Channel `json:"channels"`
-
-	// Groups
-	// Ims
-	// Team
-	// Bots
+	Groups   []Group   `json:groups"`
+	Bots     []Bot     `json:bots"`
+	IMs      []IM      `json:ims"`
+	Team     Team      `json:"team"`
 }
 
 // RtmStart returns all the info needed to start a realtime (websocket)
