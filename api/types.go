@@ -33,16 +33,11 @@ type Channel struct {
 		Creator string `json:"creator"`
 		LastSet int64  `json:"last_set"`
 	} `json:"purpose,omitempty"`
-	Latest struct {
-		Text string  `json:"text"`
-		TS   float64 `json:"ts"`
-		Type string  `json:"type"`
-		User string  `json:"user"`
-	} `json:"latest,omitempty"`
-	IsMember           bool   `json:"is_member"`
-	LastRead           string `json:"last_read"`
-	UnreadCount        int64  `json:"unread_count"`
-	UnreadCountDisplay int64  `json:"unread_count_display"`
+	Latest             *Message `json:"latest,omitempty"`
+	IsMember           bool     `json:"is_member"`
+	LastRead           string   `json:"last_read"`
+	UnreadCount        int64    `json:"unread_count"`
+	UnreadCountDisplay int64    `json:"unread_count_display"`
 }
 
 type User struct {
