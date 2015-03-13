@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/pastjean/slackbot/api"
-	"github.com/pastjean/slackbot/rtm"
+	"github.com/lusis/slackbot/api"
+	"github.com/lusis/slackbot/rtm"
 )
 
 func main() {
